@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f4efe7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#191714" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -14,436 +14,438 @@
 <style>
   :root{
     color-scheme: light dark;
-    --bg:#f4efe7;
-    --bg-grad:#efe7db;
-    --surface:#fffdfa;
-    --surface-2:#faf6ef;
-    --ink:#2a2521;
-    --ink-soft:#4d453d;
-    --muted:#6f675d;
-    --line:#e7ded1;
-    --line-strong:#dccfbc;
-    --primary:#9a5a47;
-    --primary-press:#874c3b;
-    --on-primary:#ffffff;
-    --accent:#9a5a47;
-    --accent-soft:#f1e6df;
-    --ring:rgba(154,90,71,.30);
-    --imp3:#a8412c; --imp3-bg:#f7e4dd;
-    --imp2:#82541b; --imp2-bg:#f5e9cf;
-    --imp1:#6f675d; --imp1-bg:#ece5d9;
-    --danger:#b23b28;
-    --chevron:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236f675d' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    --shadow-sm:0 1px 2px rgba(74,48,32,.05), 0 1px 1px rgba(74,48,32,.03);
-    --shadow-md:0 2px 8px rgba(74,48,32,.06), 0 10px 26px rgba(74,48,32,.05);
-    --shadow-lg:0 16px 44px rgba(40,25,16,.20);
-    --r-lg:18px; --r-md:12px; --r-sm:10px; --r-pill:999px;
+    --font:-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    --bg:#ffffff;
+    --bg-elevated:#ffffff;
+    --surface:#ffffff;
+    --fill:#f2f2f7;
+    --fill-2:#e9e9ee;
+    --seg-active:#ffffff;
+    --ink:#1d1d1f;
+    --secondary:#6e6e73;
+    --tertiary:#8e8e93;
+    --hairline:#e6e6ea;
+    --hairline-strong:#d7d7dd;
+    --accent:#0071e3;
+    --accent-ink:#0066cc;
+    --btn-bg:#1d1d1f;
+    --btn-fg:#ffffff;
+    --imp3:#e8341f; --imp2:#e07800; --imp1:#a9a9ae;
+    --danger:#e8341f;
+    --ring:rgba(0,113,227,.35);
+    --shadow-card:0 1px 2px rgba(0,0,0,.04);
+    --shadow-pop:0 2px 6px rgba(0,0,0,.08);
+    --shadow-lg:0 -1px 0 var(--hairline), 0 -24px 60px rgba(0,0,0,.14);
+    --shadow-seg:0 1px 3px rgba(0,0,0,.12), 0 1px 1px rgba(0,0,0,.04);
+    --r-card:20px; --r-md:14px; --r-sm:10px; --r-pill:999px;
   }
   @media (prefers-color-scheme: dark){
     :root{
-      --bg:#191714;
-      --bg-grad:#151310;
-      --surface:#221f1b;
-      --surface-2:#282420;
-      --ink:#ece5da;
-      --ink-soft:#c9c0b4;
-      --muted:#a79d90;
-      --line:#37322b;
-      --line-strong:#463e34;
-      --primary:#9a5a47;
-      --primary-press:#ac6a55;
-      --on-primary:#ffffff;
-      --accent:#cf9d8b;
-      --accent-soft:#332a25;
-      --ring:rgba(207,157,139,.32);
-      --imp3:#e78a71; --imp3-bg:#3a2620;
-      --imp2:#d9a860; --imp2-bg:#342a1b;
-      --imp1:#a79d90; --imp1-bg:#2b2721;
-      --danger:#e78a71;
-      --chevron:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a79d90' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-      --shadow-sm:0 1px 2px rgba(0,0,0,.30);
-      --shadow-md:0 2px 10px rgba(0,0,0,.34);
-      --shadow-lg:0 18px 46px rgba(0,0,0,.55);
+      --bg:#000000;
+      --bg-elevated:#0a0a0c;
+      --surface:#1c1c1e;
+      --fill:#1c1c1e;
+      --fill-2:#2c2c2e;
+      --seg-active:#48484a;
+      --ink:#f5f5f7;
+      --secondary:#a1a1a6;
+      --tertiary:#8e8e93;
+      --hairline:#2a2a2c;
+      --hairline-strong:#38383a;
+      --accent:#2997ff;
+      --accent-ink:#4aa8ff;
+      --btn-bg:#f5f5f7;
+      --btn-fg:#1d1d1f;
+      --imp3:#ff5e4d; --imp2:#ff9f0a; --imp1:#8e8e93;
+      --danger:#ff5e4d;
+      --ring:rgba(41,151,255,.4);
+      --shadow-card:0 0 0 0.5px rgba(255,255,255,.04);
+      --shadow-pop:0 2px 10px rgba(0,0,0,.5);
+      --shadow-lg:0 -1px 0 var(--hairline), 0 -24px 60px rgba(0,0,0,.6);
+      --shadow-seg:0 1px 3px rgba(0,0,0,.4);
     }
   }
 
   *{box-sizing:border-box;}
   html{-webkit-text-size-adjust:100%;}
   body{
-    margin:0;
-    min-height:100dvh;
-    background:
-      radial-gradient(120% 60% at 50% -10%, var(--bg) 0%, var(--bg-grad) 100%) fixed;
-    color:var(--ink);
-    font-family:-apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", "Noto Sans SC", system-ui, sans-serif;
-    line-height:1.55;
+    margin:0; min-height:100dvh;
+    background:var(--bg); color:var(--ink);
+    font-family:var(--font);
+    line-height:1.5;
+    letter-spacing:-0.01em;
     -webkit-tap-highlight-color:transparent;
-    -webkit-font-smoothing:antialiased;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   }
-  .container{
-    max-width:640px;
-    margin:0 auto;
-    padding:
-      calc(18px + env(safe-area-inset-top))
-      calc(16px + env(safe-area-inset-right))
-      calc(40px + env(safe-area-inset-bottom))
-      calc(16px + env(safe-area-inset-left));
-  }
+  .sr-only{position:absolute!important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
   .ic{width:18px; height:18px; flex-shrink:0;}
+  .hidden{display:none !important;}
+  .wrap{max-width:600px; margin:0 auto;}
+  .pad{padding-left:calc(22px + env(safe-area-inset-left)); padding-right:calc(22px + env(safe-area-inset-right));}
 
-  /* ---------- Header / brand ---------- */
-  header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin:2px 0 20px;
-    flex-wrap:wrap;
+  /* ---------- Masthead ---------- */
+  .masthead{padding-top:calc(40px + env(safe-area-inset-top)); padding-bottom:26px;}
+  .eyebrow{
+    font-size:12px; font-weight:600; letter-spacing:0.14em;
+    color:var(--accent); margin:0 0 10px; text-transform:uppercase;
   }
-  .brand{display:flex; align-items:center; gap:11px; min-width:0;}
-  .brand-mark{
-    width:42px; height:42px;
-    border-radius:13px;
-    display:grid; place-items:center;
-    background:var(--accent-soft);
-    color:var(--accent);
-    box-shadow:var(--shadow-sm);
-    flex-shrink:0;
+  .masthead h1{
+    font-size:34px; line-height:1.1; margin:0;
+    font-weight:750; letter-spacing:-0.03em; color:var(--ink);
   }
-  .brand-mark .ic{width:22px; height:22px;}
-  h1{font-size:20px; margin:0; font-weight:650; letter-spacing:.2px;}
-  .brand-sub{margin:2px 0 0; font-size:12.5px; color:var(--muted);}
-  .header-actions{display:flex; gap:8px;}
-
-  /* ---------- Cards ---------- */
-  .card{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--r-lg);
-    padding:16px;
-    margin-bottom:14px;
-    box-shadow:var(--shadow-md);
-  }
-  .field-label{
-    display:block;
-    font-size:13px;
-    font-weight:600;
-    color:var(--ink-soft);
-    margin:0 0 9px;
-    letter-spacing:.2px;
+  .masthead .sub{
+    font-size:15px; color:var(--secondary); margin:12px 0 0; max-width:34ch; line-height:1.5;
   }
 
-  /* ---------- Fields ---------- */
-  textarea, input[type=text], select{
-    width:100%;
-    border:1px solid var(--line-strong);
-    border-radius:var(--r-md);
-    padding:11px 12px;
-    font-size:16px;
-    font-family:inherit;
-    color:var(--ink);
-    background:var(--surface-2);
-    transition:border-color .18s ease, box-shadow .18s ease, background .2s ease;
+  /* ---------- Sticky toolbar ---------- */
+  .toolbar{
+    position:sticky; top:0; z-index:30;
+    background:color-mix(in srgb, var(--bg) 80%, transparent);
+    -webkit-backdrop-filter:saturate(1.8) blur(20px); backdrop-filter:saturate(1.8) blur(20px);
+    border-bottom:1px solid var(--hairline);
+    padding-top:12px; padding-bottom:12px;
   }
-  textarea::placeholder, input::placeholder{color:var(--muted); opacity:.85;}
-  textarea:focus, input[type=text]:focus, select:focus{
-    outline:none;
-    border-color:var(--accent);
-    box-shadow:0 0 0 3px var(--ring);
-    background:var(--surface);
+  .search{position:relative; display:flex; align-items:center;}
+  .search .ic{position:absolute; left:14px; color:var(--tertiary); pointer-events:none; width:17px; height:17px;}
+  .search input{
+    width:100%; border:none; border-radius:var(--r-md);
+    background:var(--fill); color:var(--ink);
+    padding:11px 14px 11px 40px; font-size:16px; font-family:inherit; letter-spacing:-0.01em;
+    transition:box-shadow .18s, background .18s;
   }
-  textarea{min-height:80px; resize:vertical; line-height:1.55;}
-  select{
-    appearance:none; -webkit-appearance:none;
-    background-image:var(--chevron);
-    background-repeat:no-repeat;
-    background-position:right 11px center;
-    padding-right:34px;
-    cursor:pointer;
-  }
-  .form-row{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
-  .select-field{
-    flex:1 1 150px;
-    display:flex; flex-direction:column; gap:6px;
-    font-size:12px; font-weight:600; color:var(--muted);
-    letter-spacing:.2px;
-  }
-  .form-actions{display:flex; gap:10px; margin-top:14px;}
+  .search input::placeholder{color:var(--tertiary);}
+  .search input:focus{outline:none; box-shadow:0 0 0 4px var(--ring);}
 
-  /* ---------- Buttons ---------- */
-  button{
-    border:1px solid transparent;
-    border-radius:var(--r-md);
-    padding:0 16px;
-    min-height:44px;
-    font-size:14.5px;
-    font-weight:600;
-    font-family:inherit;
-    cursor:pointer;
-    display:inline-flex; align-items:center; justify-content:center; gap:7px;
-    background:var(--primary);
-    color:var(--on-primary);
-    user-select:none; -webkit-user-select:none;
-    transition:filter .16s ease, transform .06s ease, background .18s ease, border-color .18s ease;
+  .segmented{
+    display:flex; margin-top:10px; background:var(--fill);
+    border-radius:var(--r-md); padding:3px; gap:2px;
   }
-  button:focus-visible{outline:none; box-shadow:0 0 0 3px var(--ring);}
-  .btn-primary{background:var(--primary); color:var(--on-primary); box-shadow:var(--shadow-sm);}
-  .btn-ghost{background:var(--surface-2); color:var(--ink-soft); border-color:var(--line-strong);}
-  .btn-wide{flex:1;}
-  button.secondary{background:var(--surface-2); color:var(--ink-soft); border-color:var(--line-strong); box-shadow:none;}
-  button.danger{background:transparent; color:var(--danger); border-color:color-mix(in srgb, var(--danger) 40%, transparent);}
-  @media (hover:hover){
-    .btn-primary:hover{filter:brightness(1.04);}
-    button.secondary:hover, .btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
-    button.danger:hover{background:color-mix(in srgb, var(--danger) 10%, transparent);}
+  .segmented .chip{
+    flex:1; border:none; background:transparent; color:var(--secondary);
+    font-family:inherit; font-size:13.5px; font-weight:590; letter-spacing:-0.01em;
+    min-height:34px; border-radius:11px; cursor:pointer;
+    transition:color .15s, background .2s, box-shadow .2s;
   }
-  button:active{transform:translateY(1px);}
-  .btn-primary:active{background:var(--primary-press);}
+  .segmented .chip[aria-pressed="true"]{background:var(--seg-active); color:var(--ink); box-shadow:var(--shadow-seg);}
+  .segmented .chip:focus-visible{outline:none; box-shadow:0 0 0 3px var(--ring);}
 
-  /* header ghost icon buttons */
-  .header-actions button{
-    min-height:40px;
-    padding:0 12px;
-    font-size:13px;
-    background:var(--surface);
-    color:var(--ink-soft);
-    border-color:var(--line);
-    box-shadow:var(--shadow-sm);
+  .ctx-toggle{
+    display:inline-flex; align-items:center; gap:6px; margin-top:12px;
+    background:none; border:none; padding:4px 2px; cursor:pointer;
+    color:var(--accent); font-family:inherit; font-size:13.5px; font-weight:560; letter-spacing:-0.01em;
   }
-  .header-actions .ic{width:16px; height:16px;}
+  .ctx-toggle .ic{width:15px; height:15px;}
+  .ctx-toggle[aria-pressed="true"]{color:var(--ink);}
 
-  /* ---------- Situation box ---------- */
-  .situation{
-    background:linear-gradient(180deg, var(--accent-soft), var(--surface) 78%);
-    border-color:color-mix(in srgb, var(--accent) 24%, var(--line));
+  /* ---------- Body ---------- */
+  main{padding-top:24px; padding-bottom:calc(120px + env(safe-area-inset-bottom));}
+
+  .ctx-field{margin-bottom:26px;}
+  .ctx-field input{
+    width:100%; border:none; border-radius:var(--r-md); background:var(--fill);
+    padding:13px 15px; font-size:16px; color:var(--ink); font-family:inherit; letter-spacing:-0.01em;
   }
-  .situation-head{
-    display:flex; align-items:center; gap:8px;
-    font-size:13px; font-weight:650; color:var(--accent);
-    margin-bottom:10px;
+  .ctx-field input:focus{outline:none; box-shadow:0 0 0 4px var(--ring);}
+  .hint{font-size:12.5px; color:var(--tertiary); margin:9px 4px 0; line-height:1.5;}
+
+  .claude-btn{
+    width:100%; margin-bottom:30px;
+    border:1px solid var(--hairline-strong); border-radius:var(--r-pill);
+    background:var(--surface); color:var(--ink);
+    min-height:50px; font-size:15px; font-weight:600; font-family:inherit; letter-spacing:-0.01em; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:9px;
+    box-shadow:var(--shadow-card);
+    transition:background .16s, transform .06s, border-color .16s;
   }
-  .hint{font-size:12px; color:var(--muted); margin:9px 2px 0; line-height:1.5;}
+  .claude-btn .ic{width:17px; height:17px; color:var(--accent);}
+  .claude-btn:active{transform:scale(.99);}
+  @media (hover:hover){.claude-btn:hover{background:var(--fill); border-color:var(--tertiary);}}
+  .claude-btn:focus-visible{outline:none; box-shadow:0 0 0 4px var(--ring);}
 
-  /* ---------- Controls ---------- */
-  .controls{display:flex; gap:10px; margin:2px 0 12px; flex-wrap:wrap;}
-  .search-wrap{position:relative; flex:2 1 190px; display:flex; align-items:center;}
-  .search-wrap .ic{position:absolute; left:12px; color:var(--muted); pointer-events:none;}
-  .search-wrap input{padding-left:38px;}
-  .controls select{flex:1 1 120px;}
-
-  /* ---------- Toolbar ---------- */
-  .toolbar-row{margin:0 0 16px;}
-  .toolbar-row button{width:100%; min-height:46px; font-size:15px;}
-
-  /* ---------- Stats ---------- */
-  .stats{
-    font-size:12.5px; color:var(--muted);
-    margin:0 4px 12px;
-    display:flex; align-items:center; gap:7px;
-    font-variant-numeric:tabular-nums;
+  .section-label{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin:0 4px 14px;
   }
-  .stats::before{
-    content:""; width:6px; height:6px; border-radius:50%;
-    background:var(--accent); opacity:.75; flex-shrink:0;
-  }
+  .section-label h2{font-size:20px; font-weight:700; letter-spacing:-0.02em; margin:0;}
+  .stats{font-size:13px; color:var(--tertiary); font-variant-numeric:tabular-nums;}
 
-  /* ---------- Record cards (markup generated by JS) ---------- */
+  /* ---------- Records (engine markup) ---------- */
   .empty{
-    text-align:center; color:var(--muted);
-    padding:44px 16px; font-size:14px;
-    background:var(--surface);
-    border:1px dashed var(--line-strong);
-    border-radius:var(--r-lg);
+    text-align:center; color:var(--tertiary); padding:64px 24px; font-size:16px;
+    border:1px solid var(--hairline); border-radius:var(--r-card); background:var(--surface);
   }
   .record{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--r-lg);
-    padding:14px 15px;
-    margin-bottom:11px;
-    box-shadow:var(--shadow-sm);
-    transition:border-color .18s ease, box-shadow .18s ease, transform .06s ease;
+    background:var(--surface); border:1px solid var(--hairline);
+    border-radius:var(--r-card); padding:20px; margin-bottom:14px;
+    box-shadow:var(--shadow-card);
+    transition:border-color .16s, transform .08s;
   }
-  @media (hover:hover){
-    .record:hover{border-color:var(--line-strong); box-shadow:var(--shadow-md);}
-  }
-  .record-top{
-    display:flex; justify-content:space-between; align-items:flex-start;
-    gap:10px; margin-bottom:9px;
-  }
-  .badges{display:flex; gap:6px; flex-wrap:wrap; font-size:11.5px;}
+  @media (hover:hover){.record:hover{border-color:var(--hairline-strong);}}
+  .record-top{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:13px;}
+  .badges{display:flex; gap:7px; flex-wrap:wrap; align-items:center; font-size:12.5px;}
   .badge{
-    padding:2.5px 9px;
-    border-radius:var(--r-pill);
-    background:var(--surface-2);
-    color:var(--muted);
-    border:1px solid var(--line);
-    white-space:nowrap;
-    font-weight:550;
-    font-variant-numeric:tabular-nums;
+    padding:4px 10px; border-radius:var(--r-pill);
+    background:var(--fill); color:var(--secondary);
+    white-space:nowrap; font-weight:560; letter-spacing:-0.01em; font-variant-numeric:tabular-nums;
   }
-  .badge.imp3{background:var(--imp3-bg); color:var(--imp3); border-color:transparent; font-weight:700;}
-  .badge.imp2{background:var(--imp2-bg); color:var(--imp2); border-color:transparent; font-weight:650;}
-  .badge.imp1{background:var(--imp1-bg); color:var(--imp1); border-color:transparent;}
+  .badge.imp3, .badge.imp2, .badge.imp1{
+    background:transparent; padding:0 2px 0 0; font-size:15px; letter-spacing:2px; font-weight:400;
+  }
+  .badge.imp3{color:var(--imp3);} .badge.imp2{color:var(--imp2);} .badge.imp1{color:var(--imp1);}
   .score{
-    font-size:11.5px; color:var(--muted);
-    white-space:nowrap; flex-shrink:0;
-    font-variant-numeric:tabular-nums;
-    padding-top:2px; letter-spacing:.2px;
+    font-size:12.5px; color:var(--tertiary); white-space:nowrap; flex-shrink:0;
+    font-variant-numeric:tabular-nums; font-weight:560; letter-spacing:0;
   }
   .record-content{
-    font-size:15px; line-height:1.6;
-    white-space:pre-wrap; word-break:break-word;
-    margin-bottom:10px; color:var(--ink);
+    font-size:17px; line-height:1.55; letter-spacing:-0.014em;
+    white-space:pre-wrap; word-break:break-word; margin-bottom:14px; color:var(--ink);
   }
-  .record-meta{
-    font-size:11.5px; color:var(--muted);
-    margin-bottom:11px; font-variant-numeric:tabular-nums;
-  }
-  .record-actions{display:flex; gap:7px; flex-wrap:wrap;}
+  .record-meta{font-size:12.5px; color:var(--tertiary); margin-bottom:16px; font-variant-numeric:tabular-nums;}
+  .record-actions{display:flex; gap:8px; flex-wrap:wrap; padding-top:2px; border-top:1px solid var(--hairline);}
+  .record-actions{padding-top:14px;}
   .record-actions button{
-    min-height:38px; padding:0 13px; font-size:12.5px; font-weight:600;
+    min-height:36px; padding:0 15px; font-size:13px; font-weight:560; font-family:inherit; letter-spacing:-0.01em; cursor:pointer;
+    border-radius:var(--r-pill); border:1px solid var(--hairline-strong);
+    background:var(--surface); color:var(--ink);
+    display:inline-flex; align-items:center; transition:background .14s, color .14s, border-color .14s, transform .06s;
+  }
+  .record-actions button:active{transform:scale(.97);}
+  .record-actions button.danger{border-color:transparent; color:var(--danger); background:transparent; padding-left:10px;}
+  @media (hover:hover){
+    .record-actions button:hover{background:var(--fill);}
+    .record-actions button.danger:hover{background:color-mix(in srgb, var(--danger) 10%, transparent);}
   }
 
-  /* ---------- Modal ---------- */
+  /* ---------- Footer utilities ---------- */
+  .footer{
+    display:flex; justify-content:center; gap:8px; margin-top:34px;
+    padding-top:22px; border-top:1px solid var(--hairline);
+  }
+  .footer button{
+    background:none; border:none; color:var(--tertiary); font-family:inherit;
+    font-size:13px; font-weight:500; letter-spacing:-0.01em; cursor:pointer; padding:8px 12px; border-radius:var(--r-sm);
+  }
+  @media (hover:hover){.footer button:hover{color:var(--accent);}}
+
+  /* ---------- Create button (bottom-right) ---------- */
+  .fab{
+    position:fixed; z-index:40;
+    right:calc(22px + env(safe-area-inset-right));
+    bottom:calc(24px + env(safe-area-inset-bottom));
+    height:54px; padding:0 22px 0 18px; border:none; border-radius:var(--r-pill);
+    background:var(--accent); color:#fff; cursor:pointer;
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:inherit; font-size:16px; font-weight:600; letter-spacing:-0.01em;
+    box-shadow:0 6px 20px rgba(0,113,227,.36), 0 2px 6px rgba(0,0,0,.12);
+    transition:transform .12s, filter .16s;
+  }
+  .fab .ic{width:22px; height:22px;}
+  .fab:active{transform:scale(.96);}
+  @media (hover:hover){.fab:hover{filter:brightness(1.05);}}
+  .fab:focus-visible{outline:none; box-shadow:0 6px 20px rgba(0,113,227,.36), 0 0 0 4px var(--ring);}
+
+  /* ---------- Bottom sheet ---------- */
+  .sheet-scrim{
+    position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.4);
+    display:flex; align-items:flex-end; justify-content:center;
+    -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px); animation:fade .2s ease-out;
+  }
+  .sheet-scrim.hidden{display:none;}
+  @keyframes fade{from{opacity:0;} to{opacity:1;}}
+  .sheet{
+    background:var(--bg-elevated); width:100%; max-width:600px;
+    border-radius:26px 26px 0 0; box-shadow:var(--shadow-lg);
+    padding:10px calc(22px + env(safe-area-inset-right)) calc(24px + env(safe-area-inset-bottom)) calc(22px + env(safe-area-inset-left));
+    max-height:92dvh; overflow-y:auto;
+    animation:slideup .3s cubic-bezier(.32,.72,0,1);
+  }
+  @keyframes slideup{from{transform:translateY(100%);} to{transform:translateY(0);}}
+  .sheet-grip{width:36px; height:5px; border-radius:99px; background:var(--hairline-strong); margin:0 auto 16px;}
+  .sheet-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;}
+  .sheet-head h2{font-size:22px; margin:0; font-weight:750; letter-spacing:-0.02em;}
+  .sheet-close{
+    width:32px; height:32px; border-radius:var(--r-pill); border:none;
+    background:var(--fill); color:var(--secondary); cursor:pointer; display:grid; place-items:center;
+  }
+  .sheet textarea{
+    width:100%; border:none; border-radius:var(--r-md); background:var(--fill);
+    padding:15px; font-size:17px; color:var(--ink); font-family:inherit; letter-spacing:-0.01em;
+    min-height:104px; resize:vertical; line-height:1.55;
+  }
+  .sheet textarea:focus{outline:none; box-shadow:0 0 0 4px var(--ring);}
+  .seg-label{display:block; font-size:13px; font-weight:600; color:var(--secondary); letter-spacing:-0.01em; margin:20px 2px 9px;}
+  .seg{display:flex; background:var(--fill); border-radius:var(--r-md); padding:3px; gap:2px;}
+  .seg-item{
+    flex:1 1 auto; min-height:42px; padding:0 12px;
+    border:none; border-radius:11px; background:transparent; color:var(--secondary);
+    font-size:14.5px; font-weight:560; font-family:inherit; letter-spacing:-0.01em; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    transition:color .15s, background .2s, box-shadow .2s;
+  }
+  .seg-item[aria-pressed="true"]{background:var(--seg-active); color:var(--ink); box-shadow:var(--shadow-seg);}
+  .seg-item:focus-visible{outline:none; box-shadow:0 0 0 3px var(--ring);}
+  .sheet-actions{display:flex; gap:10px; margin-top:26px;}
+
+  /* ---------- Buttons ---------- */
+  button.btn-primary, button.btn-ghost{
+    flex:1; min-height:52px; border-radius:var(--r-pill);
+    font-size:16px; font-weight:600; font-family:inherit; letter-spacing:-0.01em; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center; gap:8px; border:1px solid transparent;
+    transition:filter .16s, transform .06s, background .16s;
+  }
+  button.btn-primary{background:var(--btn-bg); color:var(--btn-fg);}
+  button.btn-primary:active{transform:scale(.99); filter:brightness(1.1);}
+  @media (hover:hover){button.btn-primary:hover{filter:brightness(1.08);}}
+  button.btn-ghost{background:var(--fill); color:var(--ink);}
+  button.btn-primary:focus-visible, button.btn-ghost:focus-visible{outline:none; box-shadow:0 0 0 4px var(--ring);}
+
+  /* ---------- Claude output modal ---------- */
   .modal{
-    position:fixed; inset:0; z-index:100;
-    background:rgba(28,18,12,.52);
-    display:flex; align-items:center; justify-content:center;
-    padding:16px;
-    -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
-    animation:fade .18s ease-out;
+    position:fixed; inset:0; z-index:110; background:rgba(0,0,0,.45);
+    display:flex; align-items:center; justify-content:center; padding:18px;
+    -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); animation:fade .18s ease-out;
   }
   .modal.hidden{display:none;}
-  @keyframes fade{from{opacity:0;} to{opacity:1;}}
   .modal-content{
-    background:var(--surface);
-    color:var(--ink);
-    border:1px solid var(--line);
-    border-radius:var(--r-lg);
-    padding:18px;
-    max-width:640px; width:100%;
-    max-height:82vh;
-    display:flex; flex-direction:column; gap:12px;
-    box-shadow:var(--shadow-lg);
-    animation:pop .2s cubic-bezier(.2,.9,.3,1.2);
+    background:var(--bg-elevated); color:var(--ink); border:1px solid var(--hairline);
+    border-radius:22px; padding:22px; max-width:600px; width:100%; max-height:82vh;
+    display:flex; flex-direction:column; gap:14px; box-shadow:var(--shadow-pop);
+    animation:pop .22s cubic-bezier(.32,.72,0,1);
   }
-  @keyframes pop{from{opacity:0; transform:scale(.97) translateY(6px);} to{opacity:1; transform:scale(1) translateY(0);}}
-  .modal-head{font-size:14px; font-weight:650; color:var(--ink);}
-  .modal-head span{display:block; font-size:12px; font-weight:400; color:var(--muted); margin-top:3px;}
+  @keyframes pop{from{opacity:0; transform:scale(.96);} to{opacity:1; transform:scale(1);}}
+  .modal-head{font-size:18px; font-weight:750; letter-spacing:-0.02em;}
+  .modal-head span{display:block; font-size:13px; font-weight:400; color:var(--secondary); margin-top:4px; letter-spacing:-0.01em;}
   #modalText{
-    flex:1; min-height:320px;
-    font-size:13px; line-height:1.6;
-    font-family:ui-monospace, "SFMono-Regular", "Cascadia Code", Menlo, Consolas, monospace;
-    resize:vertical;
+    flex:1; min-height:320px; font-size:13px; line-height:1.65;
+    border:none; border-radius:var(--r-md); background:var(--fill); color:var(--ink); padding:14px;
+    font-family:ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; resize:vertical;
   }
   .modal-actions{display:flex; gap:10px;}
-  .modal-actions button{flex:1;}
-
   #importFile{display:none;}
-  .hidden{display:none !important;}
 
-  @media (max-width:420px){
-    .brand-sub{display:none;}
-    .header-actions button span{display:none;}
-    .header-actions button{padding:0 11px;}
-  }
+  @media (max-width:390px){ .masthead h1{font-size:30px;} }
   @media (prefers-reduced-motion: reduce){
-    *{animation-duration:.001ms !important; animation-iteration-count:1 !important;
-      transition-duration:.001ms !important; scroll-behavior:auto !important;}
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
   }
 </style>
 </head>
 <body>
-<div class="container">
 
-  <header>
-    <div class="brand">
-      <div class="brand-mark" aria-hidden="true">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-6.8-4.2-9.2-8.6C1.3 8.2 2.8 4.8 6.2 4.8c2 0 3.2 1.2 3.8 2.2.6-1 1.8-2.2 3.8-2.2 3.4 0 4.9 3.4 3.4 6.6C18.8 15.8 12 20 12 20z"/></svg>
-      </div>
-      <div>
-        <h1>习惯记录本</h1>
-        <p class="brand-sub">悄悄记下她的习惯与偏好</p>
-      </div>
-    </div>
-    <div class="header-actions">
-      <button class="secondary" id="exportJsonBtn" aria-label="导出备份">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-        <span>导出</span>
-      </button>
-      <button class="secondary" id="importJsonBtn" aria-label="导入备份">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="m7 14 5-5 5 5"/><path d="M5 3h14"/></svg>
-        <span>导入</span>
-      </button>
-      <input type="file" id="importFile" accept=".json">
-    </div>
-  </header>
+<header class="masthead wrap pad">
+  <p class="eyebrow">私人记录</p>
+  <h1>习惯记录本</h1>
+  <p class="sub">悄悄记下她的习惯与偏好，需要时一键整理给 Claude 出主意。</p>
+</header>
 
-  <section class="card">
-    <label class="field-label" for="contentInput">记一笔</label>
-    <textarea id="contentInput" placeholder="她说的、你观察到的习惯或偏好…"></textarea>
-    <div class="form-row">
-      <label class="select-field">重要度
-        <select id="importanceInput">
-          <option value="1">1 · 一般</option>
-          <option value="2" selected>2 · 重要</option>
-          <option value="3">3 · 关键</option>
-        </select>
-      </label>
-      <label class="select-field">可信度
-        <select id="confidenceInput">
-          <option value="explicit">她明确说的</option>
-          <option value="observed" selected>我观察到的</option>
-          <option value="guess">我猜测的</option>
-        </select>
-      </label>
-      <label class="select-field">稳定性
-        <select id="stabilityInput">
-          <option value="stable" selected>长期稳定</option>
-          <option value="transient">阶段性/会变</option>
-        </select>
-      </label>
-    </div>
-    <div class="form-actions">
-      <button class="btn-primary btn-wide" id="submitBtn">添加记录</button>
-      <button class="btn-ghost hidden" id="cancelEditBtn">取消编辑</button>
-    </div>
-  </section>
-
-  <section class="card situation">
-    <div class="situation-head">
-      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 4v3"/><path d="M20.5 5.5h-3"/></svg>
-      <span>这次的情况</span>
-    </div>
-    <input type="text" id="situationInput" placeholder="填了会按相关性把相关记录排到前面（可选）">
-    <p class="hint">留空则按权重默认排序 · 权重会随反复印证增长，再乘以可信度与新鲜度</p>
-  </section>
-
-  <div class="controls">
-    <div class="search-wrap">
+<div class="toolbar">
+  <div class="wrap pad">
+    <div class="search">
       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.1-4.1"/></svg>
-      <input type="text" id="searchInput" placeholder="搜索关键词…" aria-label="搜索记录">
+      <input type="text" id="searchInput" placeholder="搜索记录" aria-label="搜索记录">
     </div>
-    <select id="filterImportance" aria-label="按重要度筛选">
-      <option value="0">全部重要度</option>
+    <div class="segmented" role="group" aria-label="按重要度筛选">
+      <button class="chip" data-imp="0" aria-pressed="true">全部</button>
+      <button class="chip" data-imp="3" aria-pressed="false">关键</button>
+      <button class="chip" data-imp="2" aria-pressed="false">重要</button>
+      <button class="chip" data-imp="1" aria-pressed="false">一般</button>
+    </div>
+    <button class="ctx-toggle" id="ctxToggle" aria-pressed="false" aria-controls="ctxField">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+      加上「这次的情况」按相关性排序
+    </button>
+    <select id="filterImportance" class="sr-only" tabindex="-1" aria-hidden="true">
+      <option value="0" selected>全部重要度</option>
       <option value="1">仅看 1 级</option>
       <option value="2">仅看 2 级</option>
       <option value="3">仅看 3 级</option>
     </select>
   </div>
+</div>
 
-  <div class="toolbar-row">
-    <button class="btn-primary" id="exportForClaudeBtn">
-      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg>
-      整理给 Claude
-    </button>
+<main class="wrap pad">
+
+  <div class="ctx-field hidden" id="ctxField">
+    <input type="text" id="situationInput" placeholder="这次遇到的情况…">
+    <p class="hint">填了会把相关记录排到前面 · 留空则按权重默认排序（权重随反复印证增长，再乘可信度与新鲜度）</p>
   </div>
 
-  <div class="stats" id="statsLine"></div>
+  <button class="claude-btn" id="exportForClaudeBtn">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg>
+    整理当前记录给 Claude
+  </button>
+
+  <div class="section-label">
+    <h2>记录</h2>
+    <span class="stats" id="statsLine"></span>
+  </div>
 
   <div id="recordList"></div>
 
+  <div class="footer">
+    <button id="exportJsonBtn">导出备份</button>
+    <button id="importJsonBtn">导入备份</button>
+    <input type="file" id="importFile" accept=".json">
+  </div>
+
+</main>
+
+<button class="fab" id="fabAdd" aria-label="记一笔">
+  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+  记一笔
+</button>
+
+<div class="sheet-scrim hidden" id="composeSheet">
+  <div class="sheet" role="dialog" aria-modal="true" aria-label="记录">
+    <div class="sheet-grip"></div>
+    <div class="sheet-head">
+      <h2 id="sheetTitle">记一笔</h2>
+      <button class="sheet-close" id="sheetClose" aria-label="关闭">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <textarea id="contentInput" placeholder="她说的、你观察到的习惯或偏好…"></textarea>
+
+    <span class="seg-label">重要度</span>
+    <div class="seg" data-target="importanceInput" role="group" aria-label="重要度">
+      <button type="button" class="seg-item" data-val="1">一般</button>
+      <button type="button" class="seg-item" data-val="2">重要</button>
+      <button type="button" class="seg-item" data-val="3">关键</button>
+    </div>
+
+    <span class="seg-label">可信度</span>
+    <div class="seg" data-target="confidenceInput" role="group" aria-label="可信度">
+      <button type="button" class="seg-item" data-val="explicit">她明确说的</button>
+      <button type="button" class="seg-item" data-val="observed">我观察到的</button>
+      <button type="button" class="seg-item" data-val="guess">我猜的</button>
+    </div>
+
+    <span class="seg-label">稳定性</span>
+    <div class="seg" data-target="stabilityInput" role="group" aria-label="稳定性">
+      <button type="button" class="seg-item" data-val="stable">长期稳定</button>
+      <button type="button" class="seg-item" data-val="transient">阶段性/会变</button>
+    </div>
+
+    <select id="importanceInput" class="sr-only" tabindex="-1" aria-hidden="true">
+      <option value="1">1 · 一般</option>
+      <option value="2" selected>2 · 重要</option>
+      <option value="3">3 · 关键</option>
+    </select>
+    <select id="confidenceInput" class="sr-only" tabindex="-1" aria-hidden="true">
+      <option value="explicit">她明确说的</option>
+      <option value="observed" selected>我观察到的</option>
+      <option value="guess">我猜测的</option>
+    </select>
+    <select id="stabilityInput" class="sr-only" tabindex="-1" aria-hidden="true">
+      <option value="stable" selected>长期稳定</option>
+      <option value="transient">阶段性/会变</option>
+    </select>
+
+    <div class="sheet-actions">
+      <button class="btn-primary" id="submitBtn">添加记录</button>
+      <button class="btn-ghost hidden" id="cancelEditBtn">取消编辑</button>
+    </div>
+  </div>
 </div>
 
 <div class="modal hidden" id="modal">
@@ -792,6 +794,107 @@
   });
 
   render();
+})();
+</script>
+
+<script>
+/* Modern UI layer — drives sheet / chips / segmented controls.
+   The data engine (scoring, dedup, import/export, render) lives in the script
+   above and is untouched; this only manipulates the elements it already reads. */
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var scrim = $('composeSheet');
+  var contentInput = $('contentInput');
+  var cancelBtn = $('cancelEditBtn');
+  var submitBtn = $('submitBtn');
+  var sheetTitle = $('sheetTitle');
+
+  function openSheet(title){
+    if(sheetTitle) sheetTitle.textContent = title || '记一笔';
+    scrim.classList.remove('hidden');
+    syncSegs();
+    setTimeout(function(){ try{ contentInput.focus(); }catch(e){} }, 60);
+  }
+  function closeSheet(){ scrim.classList.add('hidden'); }
+
+  /* FAB: fresh add. Reset via the engine's own resetForm (fires on cancel click). */
+  $('fabAdd').addEventListener('click', function(){
+    cancelBtn.click();          // engine resets fields + editingId; our cancel handler no-op-closes
+    openSheet('记一笔');
+  });
+
+  /* Edit: engine fills the fields first (registered earlier), then we open the sheet. */
+  $('recordList').addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-action="edit"]');
+    if(btn) openSheet('编辑记录');
+  });
+
+  /* Cancel inside sheet -> engine resets, we close. */
+  cancelBtn.addEventListener('click', closeSheet);
+
+  /* Close affordances reset engine state (so a half-done edit doesn't linger). */
+  $('sheetClose').addEventListener('click', function(){ cancelBtn.click(); });
+  scrim.addEventListener('click', function(e){ if(e.target === scrim) cancelBtn.click(); });
+
+  /* Submit: close only when the add/edit actually succeeded (engine clears content). */
+  var hadContent = false;
+  submitBtn.addEventListener('click', function(){ hadContent = contentInput.value.trim() !== ''; }, true);
+  submitBtn.addEventListener('click', function(){
+    setTimeout(function(){
+      if(hadContent && contentInput.value.trim() === '') closeSheet();
+    }, 0);
+  });
+
+  /* Importance filter chips -> drive the hidden <select> the engine reads. */
+  var filterSel = $('filterImportance');
+  var impChips = Array.prototype.slice.call(document.querySelectorAll('.chip[data-imp]'));
+  impChips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      impChips.forEach(function(c){ c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+      filterSel.value = chip.getAttribute('data-imp');
+      filterSel.dispatchEvent(new Event('input', {bubbles:true}));
+    });
+  });
+
+  /* "这次的情况" toggle -> show/hide the relevance field. */
+  var ctxToggle = $('ctxToggle');
+  var ctxField = $('ctxField');
+  var situationInput = $('situationInput');
+  ctxToggle.addEventListener('click', function(){
+    var show = ctxField.classList.contains('hidden');
+    ctxField.classList.toggle('hidden', !show);
+    ctxToggle.setAttribute('aria-pressed', show ? 'true' : 'false');
+    if(show){
+      setTimeout(function(){ try{ situationInput.focus(); }catch(e){} }, 60);
+    } else if(situationInput.value){
+      situationInput.value = '';
+      situationInput.dispatchEvent(new Event('input', {bubbles:true}));
+    }
+  });
+
+  /* Segmented controls <-> hidden <select> the engine reads on submit. */
+  var segs = Array.prototype.slice.call(document.querySelectorAll('.seg'));
+  function syncSegs(){
+    segs.forEach(function(seg){
+      var sel = $(seg.getAttribute('data-target'));
+      if(!sel) return;
+      Array.prototype.slice.call(seg.querySelectorAll('.seg-item')).forEach(function(item){
+        item.setAttribute('aria-pressed', item.getAttribute('data-val') === sel.value ? 'true' : 'false');
+      });
+    });
+  }
+  segs.forEach(function(seg){
+    var sel = $(seg.getAttribute('data-target'));
+    seg.addEventListener('click', function(e){
+      var item = e.target.closest('.seg-item');
+      if(!item || !sel) return;
+      sel.value = item.getAttribute('data-val');
+      Array.prototype.slice.call(seg.querySelectorAll('.seg-item')).forEach(function(it){
+        it.setAttribute('aria-pressed', it === item ? 'true' : 'false');
+      });
+    });
+  });
+  syncSegs();
 })();
 </script>
 </body>
