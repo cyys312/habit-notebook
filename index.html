@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>习惯记录本</title>
+<style>
+  :root{
+    --bg:#f6f5f3;
+    --card:#ffffff;
+    --ink:#2b2b2b;
+    --muted:#8a8a8a;
+    --line:#e7e4df;
+    --accent:#a7796b;
+    --accent-soft:#f1e6e0;
+    --imp3:#c0533f;
+    --imp2:#c98a3a;
+    --imp1:#9a9a9a;
+    --danger:#c0533f;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+    line-height:1.5;
+  }
+  .container{
+    max-width:720px;
+    margin:0 auto;
+    padding:16px 16px 80px;
+  }
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:8px 0 16px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  h1{
+    font-size:20px;
+    margin:0;
+    font-weight:600;
+  }
+  .header-actions{display:flex; gap:8px;}
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:14px;
+  }
+  textarea, input[type=text], select{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:8px 10px;
+    font-size:14px;
+    font-family:inherit;
+    background:#fff;
+    color:var(--ink);
+  }
+  textarea{
+    min-height:64px;
+    resize:vertical;
+  }
+  .form-row{
+    display:flex;
+    gap:8px;
+    margin-top:8px;
+    flex-wrap:wrap;
+  }
+  .form-row > label{
+    flex:1 1 140px;
+    font-size:12px;
+    color:var(--muted);
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .form-actions{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+  }
+  button{
+    border:none;
+    border-radius:8px;
+    padding:8px 14px;
+    font-size:13px;
+    cursor:pointer;
+    background:var(--accent);
+    color:#fff;
+    font-family:inherit;
+  }
+  button.secondary{
+    background:#efeae6;
+    color:var(--ink);
+  }
+  button.danger{
+    background:#fff;
+    color:var(--danger);
+    border:1px solid var(--danger);
+  }
+  button:active{opacity:0.85;}
+  .controls{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+    margin-bottom:12px;
+  }
+  .controls input{flex:2 1 160px;}
+  .controls select{flex:1 1 100px;}
+  .situation-box input{border-color:var(--accent);}
+  .toolbar-row{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .toolbar-row button{flex:1 1 auto;}
+  .empty{
+    text-align:center;
+    color:var(--muted);
+    padding:30px 0;
+    font-size:13px;
+  }
+  .record{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px 14px;
+    margin-bottom:10px;
+  }
+  .record-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .badges{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+    font-size:11px;
+  }
+  .badge{
+    padding:2px 7px;
+    border-radius:99px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    white-space:nowrap;
+  }
+  .badge.imp3{background:#f6e2dd; color:var(--imp3); font-weight:600;}
+  .badge.imp2{background:#f7ead4; color:var(--imp2);}
+  .badge.imp1{background:#eeeeee; color:var(--imp1);}
+  .score{
+    font-size:11px;
+    color:var(--muted);
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .record-content{
+    font-size:14.5px;
+    white-space:pre-wrap;
+    word-break:break-word;
+    margin-bottom:8px;
+  }
+  .record-meta{
+    font-size:11px;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .record-actions{
+    display:flex;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+  .record-actions button{padding:5px 10px; font-size:12px;}
+  .modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+  }
+  .modal.hidden{display:none;}
+  .modal-content{
+    background:#fff;
+    border-radius:12px;
+    padding:16px;
+    max-width:680px;
+    width:100%;
+    max-height:80vh;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  #modalText{
+    flex:1;
+    min-height:320px;
+    font-size:13px;
+    font-family:ui-monospace, monospace;
+  }
+  .hint{
+    font-size:12px;
+    color:var(--muted);
+    margin:-6px 0 12px;
+  }
+  .stats{
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:10px;
+    text-align:right;
+  }
+  #importFile{display:none;}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>习惯记录本</h1>
+    <div class="header-actions">
+      <button class="secondary" id="exportJsonBtn">导出备份</button>
+      <button class="secondary" id="importJsonBtn">导入备份</button>
+      <input type="file" id="importFile" accept=".json">
+    </div>
+  </header>
+
+  <div class="card">
+    <textarea id="contentInput" placeholder="记录点什么，比如她说的、你观察到的习惯或喜好…"></textarea>
+    <div class="form-row">
+      <label>重要度
+        <select id="importanceInput">
+          <option value="1">1 · 一般</option>
+          <option value="2" selected>2 · 重要</option>
+          <option value="3">3 · 关键</option>
+        </select>
+      </label>
+      <label>可信度
+        <select id="confidenceInput">
+          <option value="explicit">她明确说的</option>
+          <option value="observed" selected>我观察到的</option>
+          <option value="guess">我猜测的</option>
+        </select>
+      </label>
+      <label>稳定性
+        <select id="stabilityInput">
+          <option value="stable" selected>长期稳定</option>
+          <option value="transient">阶段性/会变</option>
+        </select>
+      </label>
+    </div>
+    <div class="form-actions">
+      <button id="submitBtn">添加记录</button>
+      <button class="secondary hidden" id="cancelEditBtn">取消编辑</button>
+    </div>
+  </div>
+
+  <div class="card situation-box">
+    <input type="text" id="situationInput" placeholder="（可选）这次遇到的情况，填了会按相关性重新排序">
+    <div class="hint">留空则按权重（重要度/可信度/印证次数/新鲜度）默认排序</div>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="搜索关键词…">
+    <select id="filterImportance">
+      <option value="0">全部重要度</option>
+      <option value="1">仅看 1 级</option>
+      <option value="2">仅看 2 级</option>
+      <option value="3">仅看 3 级</option>
+    </select>
+  </div>
+
+  <div class="toolbar-row">
+    <button id="exportForClaudeBtn">整理给 Claude</button>
+  </div>
+
+  <div class="stats" id="statsLine"></div>
+
+  <div id="recordList"></div>
+
+</div>
+
+<div class="modal hidden" id="modal">
+  <div class="modal-content">
+    <div class="hint" style="margin:0;">已按权重排序，复制后粘贴到和 Claude 的对话里</div>
+    <textarea id="modalText" readonly></textarea>
+    <div class="form-actions">
+      <button id="copyBtn">复制</button>
+      <button class="secondary" id="closeModalBtn">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'habitRecords_v1';
+  var editingId = null;
+
+  var confidenceLabel = { explicit: '她明确说的', observed: '我观察到的', guess: '我猜测的' };
+  var confidenceCoef  = { explicit: 1.0, observed: 0.8, guess: 0.5 };
+  var stabilityLabel  = { stable: '长期稳定', transient: '阶段性' };
+  var importanceBase  = { 1: 1, 2: 3, 3: 6 };
+
+  function loadRecords(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }catch(e){ return []; }
+  }
+  function saveRecords(records){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+  }
+  function uid(){
+    return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,8);
+  }
+
+  function reinforceCoef(count){
+    return 1 + 0.3 * Math.log(1 + count);
+  }
+  function freshness(r){
+    if(r.stability === 'stable') return 1;
+    var days = (Date.now() - new Date(r.lastConfirmedAt).getTime()) / 86400000;
+    return Math.pow(0.5, days / 60);
+  }
+  function staticScore(r){
+    return importanceBase[r.importance] * confidenceCoef[r.confidence] * reinforceCoef(r.confirmCount) * freshness(r);
+  }
+  function bigrams(str){
+    var s = (str || '').replace(/\s+/g, '');
+    var set = new Set();
+    if(s.length <= 1){ if(s.length===1) set.add(s); return set; }
+    for(var i=0;i<s.length-1;i++) set.add(s.slice(i,i+2));
+    return set;
+  }
+  function relevance(query, content){
+    if(!query) return 0;
+    var a = bigrams(query), b = bigrams(content);
+    if(a.size===0 || b.size===0) return 0;
+    var inter = 0;
+    a.forEach(function(g){ if(b.has(g)) inter++; });
+    var union = new Set([].concat(Array.from(a), Array.from(b))).size;
+    return union===0 ? 0 : inter/union;
+  }
+  function finalScore(r, query){
+    var s = staticScore(r);
+    if(!query) return s;
+    return s * (1 + 1.5 * relevance(query, r.content));
+  }
+
+  function fmtDate(iso){
+    var d = new Date(iso);
+    var pad = function(n){ return (n<10?'0':'')+n; };
+    return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+  }
+
+  function getFiltered(){
+    var records = loadRecords();
+    var search = document.getElementById('searchInput').value.trim().toLowerCase();
+    var impFilter = document.getElementById('filterImportance').value;
+    var situation = document.getElementById('situationInput').value.trim();
+
+    var filtered = records.filter(function(r){
+      if(impFilter !== '0' && String(r.importance) !== impFilter) return false;
+      if(search && r.content.toLowerCase().indexOf(search) === -1) return false;
+      return true;
+    });
+
+    filtered.forEach(function(r){ r._score = finalScore(r, situation); });
+    filtered.sort(function(a,b){
+      if(b._score !== a._score) return b._score - a._score;
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+    return filtered;
+  }
+
+  function render(){
+    var list = document.getElementById('recordList');
+    var all = loadRecords();
+    var filtered = getFiltered();
+
+    document.getElementById('statsLine').textContent = '共 ' + all.length + ' 条记录，当前显示 ' + filtered.length + ' 条';
+
+    if(filtered.length === 0){
+      list.innerHTML = '<div class="empty">还没有记录，先在上面加一条吧</div>';
+      return;
+    }
+
+    list.innerHTML = filtered.map(function(r){
+      var impClass = 'imp' + r.importance;
+      var dots = '●'.repeat(r.importance) + '○'.repeat(3 - r.importance);
+      return '' +
+        '<div class="record" data-id="'+r.id+'">' +
+          '<div class="record-top">' +
+            '<div class="badges">' +
+              '<span class="badge '+impClass+'">'+dots+'</span>' +
+              '<span class="badge">'+confidenceLabel[r.confidence]+'</span>' +
+              '<span class="badge">'+stabilityLabel[r.stability]+'</span>' +
+              (r.confirmCount>0 ? '<span class="badge">印证 '+r.confirmCount+' 次</span>' : '') +
+            '</div>' +
+            '<div class="score">分 '+r._score.toFixed(2)+'</div>' +
+          '</div>' +
+          '<div class="record-content"></div>' +
+          '<div class="record-meta">记录于 '+fmtDate(r.createdAt)+ (r.stability==='transient' ? '　最近印证 '+fmtDate(r.lastConfirmedAt) : '') +'</div>' +
+          '<div class="record-actions">' +
+            '<button class="secondary" data-action="confirm">再次印证</button>' +
+            '<button class="secondary" data-action="edit">编辑</button>' +
+            '<button class="danger" data-action="delete">删除</button>' +
+          '</div>' +
+        '</div>';
+    }).join('');
+
+    // set text content safely (avoid HTML injection from user content)
+    filtered.forEach(function(r){
+      var el = list.querySelector('.record[data-id="'+r.id+'"] .record-content');
+      if(el) el.textContent = r.content;
+    });
+  }
+
+  function resetForm(){
+    document.getElementById('contentInput').value = '';
+    document.getElementById('importanceInput').value = '2';
+    document.getElementById('confidenceInput').value = 'observed';
+    document.getElementById('stabilityInput').value = 'stable';
+    document.getElementById('submitBtn').textContent = '添加记录';
+    document.getElementById('cancelEditBtn').classList.add('hidden');
+    editingId = null;
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    var content = document.getElementById('contentInput').value.trim();
+    if(!content){ return; }
+    var importance = parseInt(document.getElementById('importanceInput').value, 10);
+    var confidence = document.getElementById('confidenceInput').value;
+    var stability = document.getElementById('stabilityInput').value;
+    var records = loadRecords();
+
+    if(editingId){
+      var rec = records.find(function(r){ return r.id === editingId; });
+      if(rec){
+        rec.content = content;
+        rec.importance = importance;
+        rec.confidence = confidence;
+        rec.stability = stability;
+      }
+    } else {
+      var now = new Date().toISOString();
+      records.push({
+        id: uid(),
+        content: content,
+        importance: importance,
+        confidence: confidence,
+        stability: stability,
+        confirmCount: 0,
+        createdAt: now,
+        lastConfirmedAt: now
+      });
+    }
+    saveRecords(records);
+    resetForm();
+    render();
+  });
+
+  document.getElementById('cancelEditBtn').addEventListener('click', resetForm);
+
+  document.getElementById('recordList').addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-action]');
+    if(!btn) return;
+    var card = e.target.closest('.record');
+    var id = card.getAttribute('data-id');
+    var records = loadRecords();
+    var rec = records.find(function(r){ return r.id === id; });
+    if(!rec) return;
+    var action = btn.getAttribute('data-action');
+
+    if(action === 'confirm'){
+      rec.confirmCount = (rec.confirmCount||0) + 1;
+      rec.lastConfirmedAt = new Date().toISOString();
+      saveRecords(records);
+      render();
+    } else if(action === 'delete'){
+      if(confirm('确定删除这条记录吗？')){
+        records = records.filter(function(r){ return r.id !== id; });
+        saveRecords(records);
+        render();
+      }
+    } else if(action === 'edit'){
+      document.getElementById('contentInput').value = rec.content;
+      document.getElementById('importanceInput').value = rec.importance;
+      document.getElementById('confidenceInput').value = rec.confidence;
+      document.getElementById('stabilityInput').value = rec.stability;
+      document.getElementById('submitBtn').textContent = '保存修改';
+      document.getElementById('cancelEditBtn').classList.remove('hidden');
+      editingId = id;
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+  });
+
+  ['searchInput','filterImportance','situationInput'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', render);
+  });
+
+  document.getElementById('exportForClaudeBtn').addEventListener('click', function(){
+    var situation = document.getElementById('situationInput').value.trim();
+    var filtered = getFiltered();
+    var lines = [];
+    lines.push('以下是关于她的记录，已按权重从高到低排序（分数综合了重要度/可信度/反复印证次数/信息新鲜度，仅供参考，不代表绝对结论）。');
+    if(situation) lines.push('这次想请你结合以下情况给建议：' + situation);
+    lines.push('');
+    filtered.forEach(function(r){
+      lines.push('[分 '+r._score.toFixed(2)+'] 重要度'+r.importance+' · '+confidenceLabel[r.confidence]+' · '+stabilityLabel[r.stability]+(r.confirmCount>0?' · 印证'+r.confirmCount+'次':'')+' · 记录于'+fmtDate(r.createdAt));
+      lines.push(r.content);
+      lines.push('');
+    });
+    var text = lines.join('\n');
+    document.getElementById('modalText').value = text;
+    document.getElementById('modal').classList.remove('hidden');
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var ta = document.getElementById('modalText');
+    ta.select();
+    var copied = false;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(ta.value).then(function(){
+        alertCopySuccess();
+      }).catch(function(){
+        fallbackCopy();
+      });
+    } else {
+      fallbackCopy();
+    }
+    function fallbackCopy(){
+      try{ document.execCommand('copy'); copied = true; }catch(e){}
+      if(copied) alertCopySuccess();
+    }
+    function alertCopySuccess(){
+      var btn = document.getElementById('copyBtn');
+      var old = btn.textContent;
+      btn.textContent = '已复制';
+      setTimeout(function(){ btn.textContent = old; }, 1500);
+    }
+  });
+
+  document.getElementById('closeModalBtn').addEventListener('click', function(){
+    document.getElementById('modal').classList.add('hidden');
+  });
+
+  document.getElementById('exportJsonBtn').addEventListener('click', function(){
+    var records = loadRecords();
+    var blob = new Blob([JSON.stringify(records, null, 2)], {type:'application/json'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    var pad = function(n){ return (n<10?'0':'')+n; };
+    var d = new Date();
+    a.href = url;
+    a.download = '习惯记录备份_' + d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate()) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('importJsonBtn').addEventListener('click', function(){
+    document.getElementById('importFile').click();
+  });
+
+  document.getElementById('importFile').addEventListener('change', function(e){
+    var file = e.target.files[0];
+    if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(evt){
+      try{
+        var imported = JSON.parse(evt.target.result);
+        if(!Array.isArray(imported)) throw new Error('格式不对');
+        var existing = loadRecords();
+        var map = {};
+        existing.forEach(function(r){ map[r.id] = r; });
+        imported.forEach(function(r){ if(r && r.id) map[r.id] = r; });
+        var merged = Object.keys(map).map(function(k){ return map[k]; });
+        saveRecords(merged);
+        render();
+        alert('导入完成，共 '+merged.length+' 条记录');
+      }catch(err){
+        alert('导入失败：文件格式不正确');
+      }
+      e.target.value = '';
+    };
+    reader.readAsText(file);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
