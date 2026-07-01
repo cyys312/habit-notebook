@@ -2,256 +2,403 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f4efe7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191714" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="习惯记录本">
 <title>习惯记录本</title>
 <style>
   :root{
-    --bg:#f6f5f3;
-    --card:#ffffff;
-    --ink:#2b2b2b;
-    --muted:#8a8a8a;
-    --line:#e7e4df;
-    --accent:#a7796b;
-    --accent-soft:#f1e6e0;
-    --imp3:#c0533f;
-    --imp2:#c98a3a;
-    --imp1:#9a9a9a;
-    --danger:#c0533f;
+    color-scheme: light dark;
+    --bg:#f4efe7;
+    --bg-grad:#efe7db;
+    --surface:#fffdfa;
+    --surface-2:#faf6ef;
+    --ink:#2a2521;
+    --ink-soft:#4d453d;
+    --muted:#6f675d;
+    --line:#e7ded1;
+    --line-strong:#dccfbc;
+    --primary:#9a5a47;
+    --primary-press:#874c3b;
+    --on-primary:#ffffff;
+    --accent:#9a5a47;
+    --accent-soft:#f1e6df;
+    --ring:rgba(154,90,71,.30);
+    --imp3:#a8412c; --imp3-bg:#f7e4dd;
+    --imp2:#82541b; --imp2-bg:#f5e9cf;
+    --imp1:#6f675d; --imp1-bg:#ece5d9;
+    --danger:#b23b28;
+    --chevron:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236f675d' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    --shadow-sm:0 1px 2px rgba(74,48,32,.05), 0 1px 1px rgba(74,48,32,.03);
+    --shadow-md:0 2px 8px rgba(74,48,32,.06), 0 10px 26px rgba(74,48,32,.05);
+    --shadow-lg:0 16px 44px rgba(40,25,16,.20);
+    --r-lg:18px; --r-md:12px; --r-sm:10px; --r-pill:999px;
   }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#191714;
+      --bg-grad:#151310;
+      --surface:#221f1b;
+      --surface-2:#282420;
+      --ink:#ece5da;
+      --ink-soft:#c9c0b4;
+      --muted:#a79d90;
+      --line:#37322b;
+      --line-strong:#463e34;
+      --primary:#9a5a47;
+      --primary-press:#ac6a55;
+      --on-primary:#ffffff;
+      --accent:#cf9d8b;
+      --accent-soft:#332a25;
+      --ring:rgba(207,157,139,.32);
+      --imp3:#e78a71; --imp3-bg:#3a2620;
+      --imp2:#d9a860; --imp2-bg:#342a1b;
+      --imp1:#a79d90; --imp1-bg:#2b2721;
+      --danger:#e78a71;
+      --chevron:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a79d90' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      --shadow-sm:0 1px 2px rgba(0,0,0,.30);
+      --shadow-md:0 2px 10px rgba(0,0,0,.34);
+      --shadow-lg:0 18px 46px rgba(0,0,0,.55);
+    }
+  }
+
   *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
   body{
     margin:0;
-    background:var(--bg);
+    min-height:100dvh;
+    background:
+      radial-gradient(120% 60% at 50% -10%, var(--bg) 0%, var(--bg-grad) 100%) fixed;
     color:var(--ink);
-    font-family:-apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
-    line-height:1.5;
+    font-family:-apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", "Noto Sans SC", system-ui, sans-serif;
+    line-height:1.55;
+    -webkit-tap-highlight-color:transparent;
+    -webkit-font-smoothing:antialiased;
   }
   .container{
-    max-width:720px;
+    max-width:640px;
     margin:0 auto;
-    padding:16px 16px 80px;
+    padding:
+      calc(18px + env(safe-area-inset-top))
+      calc(16px + env(safe-area-inset-right))
+      calc(40px + env(safe-area-inset-bottom))
+      calc(16px + env(safe-area-inset-left));
   }
+  .ic{width:18px; height:18px; flex-shrink:0;}
+
+  /* ---------- Header / brand ---------- */
   header{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    margin:8px 0 16px;
-    flex-wrap:wrap;
-    gap:8px;
-  }
-  h1{
-    font-size:20px;
-    margin:0;
-    font-weight:600;
-  }
-  .header-actions{display:flex; gap:8px;}
-  .card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:14px;
-    margin-bottom:14px;
-  }
-  textarea, input[type=text], select{
-    width:100%;
-    border:1px solid var(--line);
-    border-radius:8px;
-    padding:8px 10px;
-    font-size:14px;
-    font-family:inherit;
-    background:#fff;
-    color:var(--ink);
-  }
-  textarea{
-    min-height:64px;
-    resize:vertical;
-  }
-  .form-row{
-    display:flex;
-    gap:8px;
-    margin-top:8px;
+    gap:10px;
+    margin:2px 0 20px;
     flex-wrap:wrap;
   }
-  .form-row > label{
-    flex:1 1 140px;
-    font-size:12px;
-    color:var(--muted);
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-  }
-  .form-actions{
-    display:flex;
-    gap:8px;
-    margin-top:10px;
-  }
-  button{
-    border:none;
-    border-radius:8px;
-    padding:8px 14px;
-    font-size:13px;
-    cursor:pointer;
-    background:var(--accent);
-    color:#fff;
-    font-family:inherit;
-  }
-  button.secondary{
-    background:#efeae6;
-    color:var(--ink);
-  }
-  button.danger{
-    background:#fff;
-    color:var(--danger);
-    border:1px solid var(--danger);
-  }
-  button:active{opacity:0.85;}
-  .controls{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    align-items:center;
-    margin-bottom:12px;
-  }
-  .controls input{flex:2 1 160px;}
-  .controls select{flex:1 1 100px;}
-  .situation-box input{border-color:var(--accent);}
-  .toolbar-row{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    margin-bottom:14px;
-  }
-  .toolbar-row button{flex:1 1 auto;}
-  .empty{
-    text-align:center;
-    color:var(--muted);
-    padding:30px 0;
-    font-size:13px;
-  }
-  .record{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:12px 14px;
-    margin-bottom:10px;
-  }
-  .record-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:8px;
-    margin-bottom:6px;
-  }
-  .badges{
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
-    font-size:11px;
-  }
-  .badge{
-    padding:2px 7px;
-    border-radius:99px;
+  .brand{display:flex; align-items:center; gap:11px; min-width:0;}
+  .brand-mark{
+    width:42px; height:42px;
+    border-radius:13px;
+    display:grid; place-items:center;
     background:var(--accent-soft);
     color:var(--accent);
-    white-space:nowrap;
-  }
-  .badge.imp3{background:#f6e2dd; color:var(--imp3); font-weight:600;}
-  .badge.imp2{background:#f7ead4; color:var(--imp2);}
-  .badge.imp1{background:#eeeeee; color:var(--imp1);}
-  .score{
-    font-size:11px;
-    color:var(--muted);
-    white-space:nowrap;
+    box-shadow:var(--shadow-sm);
     flex-shrink:0;
   }
-  .record-content{
+  .brand-mark .ic{width:22px; height:22px;}
+  h1{font-size:20px; margin:0; font-weight:650; letter-spacing:.2px;}
+  .brand-sub{margin:2px 0 0; font-size:12.5px; color:var(--muted);}
+  .header-actions{display:flex; gap:8px;}
+
+  /* ---------- Cards ---------- */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--r-lg);
+    padding:16px;
+    margin-bottom:14px;
+    box-shadow:var(--shadow-md);
+  }
+  .field-label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink-soft);
+    margin:0 0 9px;
+    letter-spacing:.2px;
+  }
+
+  /* ---------- Fields ---------- */
+  textarea, input[type=text], select{
+    width:100%;
+    border:1px solid var(--line-strong);
+    border-radius:var(--r-md);
+    padding:11px 12px;
+    font-size:16px;
+    font-family:inherit;
+    color:var(--ink);
+    background:var(--surface-2);
+    transition:border-color .18s ease, box-shadow .18s ease, background .2s ease;
+  }
+  textarea::placeholder, input::placeholder{color:var(--muted); opacity:.85;}
+  textarea:focus, input[type=text]:focus, select:focus{
+    outline:none;
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px var(--ring);
+    background:var(--surface);
+  }
+  textarea{min-height:80px; resize:vertical; line-height:1.55;}
+  select{
+    appearance:none; -webkit-appearance:none;
+    background-image:var(--chevron);
+    background-repeat:no-repeat;
+    background-position:right 11px center;
+    padding-right:34px;
+    cursor:pointer;
+  }
+  .form-row{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
+  .select-field{
+    flex:1 1 150px;
+    display:flex; flex-direction:column; gap:6px;
+    font-size:12px; font-weight:600; color:var(--muted);
+    letter-spacing:.2px;
+  }
+  .form-actions{display:flex; gap:10px; margin-top:14px;}
+
+  /* ---------- Buttons ---------- */
+  button{
+    border:1px solid transparent;
+    border-radius:var(--r-md);
+    padding:0 16px;
+    min-height:44px;
     font-size:14.5px;
-    white-space:pre-wrap;
-    word-break:break-word;
-    margin-bottom:8px;
+    font-weight:600;
+    font-family:inherit;
+    cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center; gap:7px;
+    background:var(--primary);
+    color:var(--on-primary);
+    user-select:none; -webkit-user-select:none;
+    transition:filter .16s ease, transform .06s ease, background .18s ease, border-color .18s ease;
+  }
+  button:focus-visible{outline:none; box-shadow:0 0 0 3px var(--ring);}
+  .btn-primary{background:var(--primary); color:var(--on-primary); box-shadow:var(--shadow-sm);}
+  .btn-ghost{background:var(--surface-2); color:var(--ink-soft); border-color:var(--line-strong);}
+  .btn-wide{flex:1;}
+  button.secondary{background:var(--surface-2); color:var(--ink-soft); border-color:var(--line-strong); box-shadow:none;}
+  button.danger{background:transparent; color:var(--danger); border-color:color-mix(in srgb, var(--danger) 40%, transparent);}
+  @media (hover:hover){
+    .btn-primary:hover{filter:brightness(1.04);}
+    button.secondary:hover, .btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
+    button.danger:hover{background:color-mix(in srgb, var(--danger) 10%, transparent);}
+  }
+  button:active{transform:translateY(1px);}
+  .btn-primary:active{background:var(--primary-press);}
+
+  /* header ghost icon buttons */
+  .header-actions button{
+    min-height:40px;
+    padding:0 12px;
+    font-size:13px;
+    background:var(--surface);
+    color:var(--ink-soft);
+    border-color:var(--line);
+    box-shadow:var(--shadow-sm);
+  }
+  .header-actions .ic{width:16px; height:16px;}
+
+  /* ---------- Situation box ---------- */
+  .situation{
+    background:linear-gradient(180deg, var(--accent-soft), var(--surface) 78%);
+    border-color:color-mix(in srgb, var(--accent) 24%, var(--line));
+  }
+  .situation-head{
+    display:flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:650; color:var(--accent);
+    margin-bottom:10px;
+  }
+  .hint{font-size:12px; color:var(--muted); margin:9px 2px 0; line-height:1.5;}
+
+  /* ---------- Controls ---------- */
+  .controls{display:flex; gap:10px; margin:2px 0 12px; flex-wrap:wrap;}
+  .search-wrap{position:relative; flex:2 1 190px; display:flex; align-items:center;}
+  .search-wrap .ic{position:absolute; left:12px; color:var(--muted); pointer-events:none;}
+  .search-wrap input{padding-left:38px;}
+  .controls select{flex:1 1 120px;}
+
+  /* ---------- Toolbar ---------- */
+  .toolbar-row{margin:0 0 16px;}
+  .toolbar-row button{width:100%; min-height:46px; font-size:15px;}
+
+  /* ---------- Stats ---------- */
+  .stats{
+    font-size:12.5px; color:var(--muted);
+    margin:0 4px 12px;
+    display:flex; align-items:center; gap:7px;
+    font-variant-numeric:tabular-nums;
+  }
+  .stats::before{
+    content:""; width:6px; height:6px; border-radius:50%;
+    background:var(--accent); opacity:.75; flex-shrink:0;
+  }
+
+  /* ---------- Record cards (markup generated by JS) ---------- */
+  .empty{
+    text-align:center; color:var(--muted);
+    padding:44px 16px; font-size:14px;
+    background:var(--surface);
+    border:1px dashed var(--line-strong);
+    border-radius:var(--r-lg);
+  }
+  .record{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--r-lg);
+    padding:14px 15px;
+    margin-bottom:11px;
+    box-shadow:var(--shadow-sm);
+    transition:border-color .18s ease, box-shadow .18s ease, transform .06s ease;
+  }
+  @media (hover:hover){
+    .record:hover{border-color:var(--line-strong); box-shadow:var(--shadow-md);}
+  }
+  .record-top{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:10px; margin-bottom:9px;
+  }
+  .badges{display:flex; gap:6px; flex-wrap:wrap; font-size:11.5px;}
+  .badge{
+    padding:2.5px 9px;
+    border-radius:var(--r-pill);
+    background:var(--surface-2);
+    color:var(--muted);
+    border:1px solid var(--line);
+    white-space:nowrap;
+    font-weight:550;
+    font-variant-numeric:tabular-nums;
+  }
+  .badge.imp3{background:var(--imp3-bg); color:var(--imp3); border-color:transparent; font-weight:700;}
+  .badge.imp2{background:var(--imp2-bg); color:var(--imp2); border-color:transparent; font-weight:650;}
+  .badge.imp1{background:var(--imp1-bg); color:var(--imp1); border-color:transparent;}
+  .score{
+    font-size:11.5px; color:var(--muted);
+    white-space:nowrap; flex-shrink:0;
+    font-variant-numeric:tabular-nums;
+    padding-top:2px; letter-spacing:.2px;
+  }
+  .record-content{
+    font-size:15px; line-height:1.6;
+    white-space:pre-wrap; word-break:break-word;
+    margin-bottom:10px; color:var(--ink);
   }
   .record-meta{
-    font-size:11px;
-    color:var(--muted);
-    margin-bottom:8px;
+    font-size:11.5px; color:var(--muted);
+    margin-bottom:11px; font-variant-numeric:tabular-nums;
   }
-  .record-actions{
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
+  .record-actions{display:flex; gap:7px; flex-wrap:wrap;}
+  .record-actions button{
+    min-height:38px; padding:0 13px; font-size:12.5px; font-weight:600;
   }
-  .record-actions button{padding:5px 10px; font-size:12px;}
+
+  /* ---------- Modal ---------- */
   .modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.4);
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    position:fixed; inset:0; z-index:100;
+    background:rgba(28,18,12,.52);
+    display:flex; align-items:center; justify-content:center;
     padding:16px;
+    -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+    animation:fade .18s ease-out;
   }
   .modal.hidden{display:none;}
+  @keyframes fade{from{opacity:0;} to{opacity:1;}}
   .modal-content{
-    background:#fff;
-    border-radius:12px;
-    padding:16px;
-    max-width:680px;
-    width:100%;
-    max-height:80vh;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
+    background:var(--surface);
+    color:var(--ink);
+    border:1px solid var(--line);
+    border-radius:var(--r-lg);
+    padding:18px;
+    max-width:640px; width:100%;
+    max-height:82vh;
+    display:flex; flex-direction:column; gap:12px;
+    box-shadow:var(--shadow-lg);
+    animation:pop .2s cubic-bezier(.2,.9,.3,1.2);
   }
+  @keyframes pop{from{opacity:0; transform:scale(.97) translateY(6px);} to{opacity:1; transform:scale(1) translateY(0);}}
+  .modal-head{font-size:14px; font-weight:650; color:var(--ink);}
+  .modal-head span{display:block; font-size:12px; font-weight:400; color:var(--muted); margin-top:3px;}
   #modalText{
-    flex:1;
-    min-height:320px;
-    font-size:13px;
-    font-family:ui-monospace, monospace;
+    flex:1; min-height:320px;
+    font-size:13px; line-height:1.6;
+    font-family:ui-monospace, "SFMono-Regular", "Cascadia Code", Menlo, Consolas, monospace;
+    resize:vertical;
   }
-  .hint{
-    font-size:12px;
-    color:var(--muted);
-    margin:6px 0 12px;
-  }
-  .stats{
-    font-size:12px;
-    color:var(--muted);
-    margin-bottom:10px;
-    text-align:right;
-  }
+  .modal-actions{display:flex; gap:10px;}
+  .modal-actions button{flex:1;}
+
   #importFile{display:none;}
+  .hidden{display:none !important;}
+
+  @media (max-width:420px){
+    .brand-sub{display:none;}
+    .header-actions button span{display:none;}
+    .header-actions button{padding:0 11px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important;
+      transition-duration:.001ms !important; scroll-behavior:auto !important;}
+  }
 </style>
 </head>
 <body>
 <div class="container">
 
   <header>
-    <h1>习惯记录本</h1>
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-6.8-4.2-9.2-8.6C1.3 8.2 2.8 4.8 6.2 4.8c2 0 3.2 1.2 3.8 2.2.6-1 1.8-2.2 3.8-2.2 3.4 0 4.9 3.4 3.4 6.6C18.8 15.8 12 20 12 20z"/></svg>
+      </div>
+      <div>
+        <h1>习惯记录本</h1>
+        <p class="brand-sub">悄悄记下她的习惯与偏好</p>
+      </div>
+    </div>
     <div class="header-actions">
-      <button class="secondary" id="exportJsonBtn">导出备份</button>
-      <button class="secondary" id="importJsonBtn">导入备份</button>
+      <button class="secondary" id="exportJsonBtn" aria-label="导出备份">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        <span>导出</span>
+      </button>
+      <button class="secondary" id="importJsonBtn" aria-label="导入备份">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="m7 14 5-5 5 5"/><path d="M5 3h14"/></svg>
+        <span>导入</span>
+      </button>
       <input type="file" id="importFile" accept=".json">
     </div>
   </header>
 
-  <div class="card">
-    <textarea id="contentInput" placeholder="记录点什么，比如她说的、你观察到的习惯或喜好…"></textarea>
+  <section class="card">
+    <label class="field-label" for="contentInput">记一笔</label>
+    <textarea id="contentInput" placeholder="她说的、你观察到的习惯或偏好…"></textarea>
     <div class="form-row">
-      <label>重要度
+      <label class="select-field">重要度
         <select id="importanceInput">
           <option value="1">1 · 一般</option>
           <option value="2" selected>2 · 重要</option>
           <option value="3">3 · 关键</option>
         </select>
       </label>
-      <label>可信度
+      <label class="select-field">可信度
         <select id="confidenceInput">
           <option value="explicit">她明确说的</option>
           <option value="observed" selected>我观察到的</option>
           <option value="guess">我猜测的</option>
         </select>
       </label>
-      <label>稳定性
+      <label class="select-field">稳定性
         <select id="stabilityInput">
           <option value="stable" selected>长期稳定</option>
           <option value="transient">阶段性/会变</option>
@@ -259,19 +406,26 @@
       </label>
     </div>
     <div class="form-actions">
-      <button id="submitBtn">添加记录</button>
-      <button class="secondary hidden" id="cancelEditBtn">取消编辑</button>
+      <button class="btn-primary btn-wide" id="submitBtn">添加记录</button>
+      <button class="btn-ghost hidden" id="cancelEditBtn">取消编辑</button>
     </div>
-  </div>
+  </section>
 
-  <div class="card situation-box">
-    <input type="text" id="situationInput" placeholder="（可选）这次遇到的情况，填了会按相关性重新排序">
-    <div class="hint">留空则按权重（权重会随反复印证动态增长，再乘以可信度/新鲜度）默认排序</div>
-  </div>
+  <section class="card situation">
+    <div class="situation-head">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 4v3"/><path d="M20.5 5.5h-3"/></svg>
+      <span>这次的情况</span>
+    </div>
+    <input type="text" id="situationInput" placeholder="填了会按相关性把相关记录排到前面（可选）">
+    <p class="hint">留空则按权重默认排序 · 权重会随反复印证增长，再乘以可信度与新鲜度</p>
+  </section>
 
   <div class="controls">
-    <input type="text" id="searchInput" placeholder="搜索关键词…">
-    <select id="filterImportance">
+    <div class="search-wrap">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.1-4.1"/></svg>
+      <input type="text" id="searchInput" placeholder="搜索关键词…" aria-label="搜索记录">
+    </div>
+    <select id="filterImportance" aria-label="按重要度筛选">
       <option value="0">全部重要度</option>
       <option value="1">仅看 1 级</option>
       <option value="2">仅看 2 级</option>
@@ -280,7 +434,10 @@
   </div>
 
   <div class="toolbar-row">
-    <button id="exportForClaudeBtn">整理给 Claude</button>
+    <button class="btn-primary" id="exportForClaudeBtn">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg>
+      整理给 Claude
+    </button>
   </div>
 
   <div class="stats" id="statsLine"></div>
@@ -291,11 +448,11 @@
 
 <div class="modal hidden" id="modal">
   <div class="modal-content">
-    <div class="hint" style="margin:0;">已按权重排序，复制后粘贴到和 Claude 的对话里</div>
+    <div class="modal-head">整理结果<span>已按权重排序，复制后粘贴到和 Claude 的对话里</span></div>
     <textarea id="modalText" readonly></textarea>
-    <div class="form-actions">
-      <button id="copyBtn">复制</button>
-      <button class="secondary" id="closeModalBtn">关闭</button>
+    <div class="modal-actions">
+      <button class="btn-primary" id="copyBtn">复制</button>
+      <button class="btn-ghost" id="closeModalBtn">关闭</button>
     </div>
   </div>
 </div>
