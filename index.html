@@ -266,7 +266,7 @@
 
   <div class="card situation-box">
     <input type="text" id="situationInput" placeholder="（可选）这次遇到的情况，填了会按相关性重新排序">
-    <div class="hint">留空则按权重（重要度/可信度/印证次数/新鲜度）默认排序</div>
+    <div class="hint">留空则按权重（权重会随反复印证动态增长，再乘以可信度/新鲜度）默认排序</div>
   </div>
 
   <div class="controls">
@@ -307,13 +307,20 @@
 
   var confidenceLabel = { explicit: '她明确说的', observed: '我观察到的', guess: '我猜测的' };
   var confidenceCoef  = { explicit: 1.0, observed: 0.8, guess: 0.5 };
+  var confidenceRank  = { guess: 0, observed: 1, explicit: 2 };
   var stabilityLabel  = { stable: '长期稳定', transient: '阶段性' };
-  var importanceBase  = { 1: 1, 2: 3, 3: 6 };
+  var MERGE_THRESHOLD = 0.14;
 
   function loadRecords(){
     try{
       var raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
+      var records = raw ? JSON.parse(raw) : [];
+      var needsSave = false;
+      records.forEach(function(r){
+        if(typeof r.weight !== 'number'){ r.weight = r.importance; needsSave = true; }
+      });
+      if(needsSave) saveRecords(records);
+      return records;
     }catch(e){ return []; }
   }
   function saveRecords(records){
@@ -323,16 +330,13 @@
     return Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,8);
   }
 
-  function reinforceCoef(count){
-    return 1 + 0.3 * Math.log(1 + count);
-  }
   function freshness(r){
     if(r.stability === 'stable') return 1;
     var days = (Date.now() - new Date(r.lastConfirmedAt).getTime()) / 86400000;
     return Math.pow(0.5, days / 60);
   }
   function staticScore(r){
-    return importanceBase[r.importance] * confidenceCoef[r.confidence] * reinforceCoef(r.confirmCount) * freshness(r);
+    return r.weight * confidenceCoef[r.confidence] * freshness(r);
   }
   function bigrams(str){
     var s = (str || '').replace(/\s+/g, '');
@@ -354,6 +358,22 @@
     var s = staticScore(r);
     if(!query) return s;
     return s * (1 + 1.5 * relevance(query, r.content));
+  }
+  function findBestMatch(content, records){
+    var best = null, bestSim = 0;
+    records.forEach(function(r){
+      var sim = relevance(content, r.content);
+      if(sim > bestSim){ bestSim = sim; best = r; }
+    });
+    return { record: best, similarity: bestSim };
+  }
+  function reinforce(rec, importance, confidence){
+    rec.weight = (rec.weight || rec.importance) + 1;
+    rec.confirmCount = (rec.confirmCount || 0) + 1;
+    rec.lastConfirmedAt = new Date().toISOString();
+    if(importance !== undefined && importance > rec.importance) rec.importance = importance;
+    if(confidence !== undefined && confidenceRank[confidence] > confidenceRank[rec.confidence]) rec.confidence = confidence;
+    if(rec.confirmCount >= 2 && rec.stability === 'transient') rec.stability = 'stable';
   }
 
   function fmtDate(iso){
@@ -402,6 +422,7 @@
           '<div class="record-top">' +
             '<div class="badges">' +
               '<span class="badge '+impClass+'">'+dots+'</span>' +
+              '<span class="badge">权重 '+r.weight+'</span>' +
               '<span class="badge">'+confidenceLabel[r.confidence]+'</span>' +
               '<span class="badge">'+stabilityLabel[r.stability]+'</span>' +
               (r.confirmCount>0 ? '<span class="badge">印证 '+r.confirmCount+' 次</span>' : '') +
@@ -451,19 +472,36 @@
         rec.confidence = confidence;
         rec.stability = stability;
       }
-    } else {
-      var now = new Date().toISOString();
-      records.push({
-        id: uid(),
-        content: content,
-        importance: importance,
-        confidence: confidence,
-        stability: stability,
-        confirmCount: 0,
-        createdAt: now,
-        lastConfirmedAt: now
-      });
+      saveRecords(records);
+      resetForm();
+      render();
+      return;
     }
+
+    var match = findBestMatch(content, records);
+    if(match.record && match.similarity >= MERGE_THRESHOLD){
+      var merge = confirm('这条内容和已有记录很像：\n"'+match.record.content+'"\n\n合并为一次印证吗？（权重会提升，不会重复添加）\n点"取消"则作为新记录单独添加');
+      if(merge){
+        reinforce(match.record, importance, confidence);
+        saveRecords(records);
+        resetForm();
+        render();
+        return;
+      }
+    }
+
+    var now = new Date().toISOString();
+    records.push({
+      id: uid(),
+      content: content,
+      importance: importance,
+      confidence: confidence,
+      stability: stability,
+      weight: importance,
+      confirmCount: 0,
+      createdAt: now,
+      lastConfirmedAt: now
+    });
     saveRecords(records);
     resetForm();
     render();
@@ -482,8 +520,7 @@
     var action = btn.getAttribute('data-action');
 
     if(action === 'confirm'){
-      rec.confirmCount = (rec.confirmCount||0) + 1;
-      rec.lastConfirmedAt = new Date().toISOString();
+      reinforce(rec);
       saveRecords(records);
       render();
     } else if(action === 'delete'){
@@ -512,11 +549,11 @@
     var situation = document.getElementById('situationInput').value.trim();
     var filtered = getFiltered();
     var lines = [];
-    lines.push('以下是关于她的记录，已按权重从高到低排序（分数综合了重要度/可信度/反复印证次数/信息新鲜度，仅供参考，不代表绝对结论）。');
+    lines.push('以下是关于她的记录，已按权重从高到低排序（权重会随反复印证动态增长，再综合可信度/信息新鲜度算出分数，仅供参考，不代表绝对结论）。');
     if(situation) lines.push('这次想请你结合以下情况给建议：' + situation);
     lines.push('');
     filtered.forEach(function(r){
-      lines.push('[分 '+r._score.toFixed(2)+'] 重要度'+r.importance+' · '+confidenceLabel[r.confidence]+' · '+stabilityLabel[r.stability]+(r.confirmCount>0?' · 印证'+r.confirmCount+'次':'')+' · 记录于'+fmtDate(r.createdAt));
+      lines.push('[分 '+r._score.toFixed(2)+'] 权重'+r.weight+'(重要度'+r.importance+') · '+confidenceLabel[r.confidence]+' · '+stabilityLabel[r.stability]+(r.confirmCount>0?' · 印证'+r.confirmCount+'次':'')+' · 记录于'+fmtDate(r.createdAt));
       lines.push(r.content);
       lines.push('');
     });
